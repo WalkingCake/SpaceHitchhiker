@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SpaceHitchhiker.Planet
+namespace SpaceHitchhiker.Planets
 {
     [Obsolete]
     public struct oldHitchhikerOffset

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace SpaceHitchhiker.Planet
+namespace SpaceHitchhiker.Planets
 {
     [Obsolete]
     public class oldPlanetRotation : MonoBehaviour

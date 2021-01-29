@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using SpaceHitchhiker.Planet;
+using SpaceHitchhiker.Planets;
 
 namespace SpaceHitchhiker.Tools
 {
     public static class VectorConverter
     {
-        public static void FillIntermidiateVectorsStraight(HitchhickerOffset first, HitchhickerOffset second)
+        public static void FillIntermidiateVectorsStraight<T>(T first, T second) where T : Offset, new()
         {
             if(VectorConverter.GetPixelBetweenStraight(first.Vector, second.Vector, out Vector2 result))
             {
-                HitchhickerOffset newOffset = new HitchhickerOffset(result)
+                T newOffset = new T()
                 {
+                    Vector = result,
                     Prev = first,
                     Next = second
                 };
@@ -28,7 +29,7 @@ namespace SpaceHitchhiker.Tools
             }
         }
 
-        public static void FillIntermidiateVectorsArc(HitchhickerOffset first, HitchhickerOffset second, float distance)
+        public static void FillIntermidiateVectorsArc(SpinOffset first, SpinOffset second, float distance)
         {
             if (VectorConverter.GetPixelBetweenArc(first.Vector, second.Vector, distance, out Vector2 result))
             {
@@ -53,7 +54,7 @@ namespace SpaceHitchhiker.Tools
                     subY = sign < 0;
                 }
 
-                HitchhickerOffset newOffset = new HitchhickerOffset(result, addX, addY, subX, subY)
+                SpinOffset newOffset = new SpinOffset(result, addX, addY, subX, subY)
                 {
                     Prev = first,
                     Next = second
@@ -77,11 +78,27 @@ namespace SpaceHitchhiker.Tools
             return Vector2.Distance(firstDirection, result) > 0.5f && Vector2.Distance(secondDirection, result) > 0.5f;
         }
 
-        public static Vector2 RoundVector(Vector2 vec)
+        public static Vector2 RoundVector(this Vector2 vec)
         {
             vec.x = Mathf.Round(vec.x);
             vec.y = Mathf.Round(vec.y);
             return vec;
+        }
+
+        public static void RoundSequance(this Offset offset)
+        {
+            foreach(Offset current in offset.GetSequance())
+            {
+                current.Vector = current.Vector.RoundVector();
+            }
+        }
+
+        public static void AddToSequance<T>(this T offset, Vector2 value) where T : Offset
+        {
+            foreach(T current in offset.GetSequance())
+            {
+                current.Vector += value;
+            }
         }
 
         private const float SIN_22_5 = 0.3826834324f;
