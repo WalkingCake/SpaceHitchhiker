@@ -11,6 +11,8 @@ namespace SpaceHitchhiker.Player
     {
         public bool MovementAccepted { get; set; }
 
+        public Vector2 AxisDelta { get; private set; }
+
         private void Awake()
         {
             this._upPressed = false;
@@ -25,13 +27,13 @@ namespace SpaceHitchhiker.Player
             if (!this.MovementAccepted)
                 return;
 
-            Vector2 axisDelta = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            this.AxisDelta = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-            Debug.Log(axisDelta);
-            bool up = axisDelta.y > this._epsilon;
-            bool right = axisDelta.x > this._epsilon;
-            bool down = axisDelta.y < -this._epsilon;
-            bool left = axisDelta.x < -this._epsilon;
+            //Debug.Log(AxisDelta);
+            bool up = AxisDelta.y > this._epsilon;
+            bool right = AxisDelta.x > this._epsilon;
+            bool down = AxisDelta.y < -this._epsilon;
+            bool left = AxisDelta.x < -this._epsilon;
 
             bool movementStateChanged = !(up == this._upPressed && right == this._rightPressed && down == this._downPressed && left == this._leftPressed);
 

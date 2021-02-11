@@ -18,11 +18,6 @@ namespace SpaceHitchhiker.Abstraction
                 this.MoveTo(this.CurrentOffset.Next);
         }
 
-        public virtual void MovePrev()
-        {
-            if (this.CurrentOffset.Prev != null)
-                this.MoveTo(this.CurrentOffset.Prev);
-        }
 
         public virtual void MoveTo(Offset offset)
         {

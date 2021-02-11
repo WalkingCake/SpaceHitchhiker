@@ -11,7 +11,6 @@ namespace SpaceHitchhiker.Abstraction
     {
         Offset CurrentOffset { get; }
         void MoveNext();
-        void MovePrev();
         void MoveTo(Offset offset);
 
     }

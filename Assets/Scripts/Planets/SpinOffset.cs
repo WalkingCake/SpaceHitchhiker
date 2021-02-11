@@ -22,13 +22,9 @@ namespace SpaceHitchhiker.Planets
             SpinOffset down = new SpinOffset(Vector2.down * radius, false, false, false, true);
             SpinOffset left = new SpinOffset(Vector2.left * radius, false, false, true, false);
 
-            up.Prev = left;
             up.Next = right;
-            right.Prev = up;
             right.Next = down;
-            down.Prev = right;
             down.Next = left;
-            left.Prev = down;
             left.Next = up;
 
             VectorConverter.FillIntermidiateVectorsArc(up, right, radius);

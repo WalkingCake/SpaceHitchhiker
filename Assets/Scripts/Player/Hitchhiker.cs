@@ -2,15 +2,14 @@
 using SpaceHitchhiker.Tools;
 using UnityEngine;
 using SpaceHitchhiker.Abstraction;
+using System.Collections;
 
 namespace SpaceHitchhiker.Player
 {
     public class Hitchhiker : AbstractMoveable
     {
         public HitchhikerState State { get; set; }
-        public float MaxSpeed => this._maxSpeed;
-
-        public float Acceleration => this._acceleration;
+        public RigidbodyHandler RigidbodyHandler => this._rigidbodyHandler;
 
         private void Awake()
         {
@@ -37,23 +36,43 @@ namespace SpaceHitchhiker.Player
                 this.UpdateRotationAnimator();
         }
 
-        public override void MovePrev()
+        public void Free(Vector2 flyDirection, float positionSwitchingTime)
         {
-            base.MovePrev();
-            if(this.CurrentOffset is SpinOffset)
-                this.UpdateRotationAnimator();
+            this.State = HitchhikerState.Free;
+            this.RigidbodyHandler.MovementAllowed = true;
+            this.RigidbodyHandler.Position = this.transform.position;
+            this._flight = StartCoroutine(this.Flight(flyDirection, positionSwitchingTime));
         }
-
 
         public void BindToPlanet(Planet planet)
         {
 
         }
 
+        private IEnumerator Flight(Vector2 flyDirection, float positionSwitchingTime)
+        {
+            FreeHitchhikerOffset path = new FreeHitchhikerOffset(this.transform.position, this._rigidbodyHandler,
+                flyDirection * this._rigidbodyHandler.MaxVelocity);
+            this.MoveTo(path);
+            this._cameraMover.MoveTo(path);
 
-        [SerializeField] private float _maxSpeed;
-        [SerializeField] private float _acceleration;
+            while(true)
+            {
+                this.RigidbodyHandler.AxisDelta = this._movementInfoCollector.AxisDelta;
+                this.MoveNext();
+                this._cameraMover.MoveNext();
+                yield return new WaitForSeconds(positionSwitchingTime);
+            }
 
+            StopCoroutine(_flight);
+            yield break;
+
+        }
+
+        private Coroutine _flight;
+
+        [SerializeField] private CameraMover _cameraMover;
+        [SerializeField] private RigidbodyHandler _rigidbodyHandler;
         [SerializeField] private HitchhikerMovementInfoCollector _movementInfoCollector;
         [SerializeField] private Animator _rotationAnimator;
     }

@@ -10,8 +10,8 @@ namespace SpaceHitchhiker.Tools
     public class Offset
     {
         public virtual Offset Next { get; set; }
-        public virtual Offset Prev { get; set; }
-        public Vector2 Vector { get; set; }
+        public virtual bool HasNext => this.Next != null;
+        public virtual Vector2 Vector { get; set; }
 
         public Offset() : this(Vector2.zero) { }
 

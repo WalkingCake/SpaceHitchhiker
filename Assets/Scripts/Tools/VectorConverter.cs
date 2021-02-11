@@ -17,12 +17,10 @@ namespace SpaceHitchhiker.Tools
                 T newOffset = new T()
                 {
                     Vector = result,
-                    Prev = first,
                     Next = second
                 };
 
                 first.Next = newOffset;
-                second.Prev = newOffset;
 
                 VectorConverter.FillIntermidiateVectorsStraight(first, newOffset);
                 VectorConverter.FillIntermidiateVectorsStraight(newOffset, second);
@@ -56,11 +54,9 @@ namespace SpaceHitchhiker.Tools
 
                 SpinOffset newOffset = new SpinOffset(result, addX, addY, subX, subY)
                 {
-                    Prev = first,
                     Next = second
                 };
                 first.Next = newOffset;
-                second.Prev = newOffset;
                 VectorConverter.FillIntermidiateVectorsArc(first, newOffset, distance);
                 VectorConverter.FillIntermidiateVectorsArc(newOffset, second, distance);
             }
