@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TransformationAnim
+  m_Name: FreeHitchhiker
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,16 +20,6 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 491913904798366839, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - time: 0.2
-      value: {fileID: 7844283659867663375, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - time: 0.4
-      value: {fileID: 2403226832193600217, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - time: 0.6
-      value: {fileID: -6586695053850273863, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - time: 0.8
-      value: {fileID: 2127659455460298737, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - time: 1
       value: {fileID: -7467779675928568530, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
     attribute: m_Sprite
     path: 
@@ -50,21 +40,16 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 491913904798366839, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - {fileID: 7844283659867663375, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - {fileID: 2403226832193600217, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - {fileID: -6586695053850273863, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
-    - {fileID: 2127659455460298737, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
     - {fileID: -7467779675928568530, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.0166667
+    m_StopTime: 0.016666668
     m_OrientationOffsetY: 0
     m_Level: 0
-    m_CycleOffset: 1
+    m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
     m_LoopTime: 0
     m_LoopBlend: 0

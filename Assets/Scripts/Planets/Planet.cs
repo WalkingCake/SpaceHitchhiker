@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using SpaceHitchhiker.Abstraction;
 
 namespace SpaceHitchhiker.Planets
 {
-    public class Planet : MonoBehaviour
+    public class Planet : MonoBehaviour, IInitializeable<Planet>
     {
         public string Name { get; private set; }
 
@@ -20,6 +21,11 @@ namespace SpaceHitchhiker.Planets
             planet.Name = name;
 
             return planet;
+        }
+
+        public Planet Initialize(AbstractRawInfo<Planet> info)
+        {
+            throw new NotImplementedException();
         }
     }
 }

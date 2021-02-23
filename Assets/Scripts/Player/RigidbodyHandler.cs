@@ -10,6 +10,7 @@ namespace SpaceHitchhiker.Player
 {
     public class RigidbodyHandler : MonoBehaviour
     {
+        public Hitchhiker Parent => this._hitchhiker;
         public Vector2 AxisDelta { private get;  set; }
 
         public bool MovementAllowed
@@ -18,10 +19,10 @@ namespace SpaceHitchhiker.Player
             set
             {
                 this._movementAllowed = value;
+                this.Velocity = Vector2.zero;
                 this.gameObject.SetActive(value);
                 if(value)
                 {
-                    this.Velocity = Vector2.zero;
                     this._rigidbody.WakeUp();
                 }
             }
@@ -30,6 +31,7 @@ namespace SpaceHitchhiker.Player
         {
             this.Velocity = Vector2.zero;
             this.MovementAllowed = false;
+            this._settings = GameSettings.Instance;
         }
         public Vector2 Position
         {
@@ -46,22 +48,21 @@ namespace SpaceHitchhiker.Player
             get => this._rigidbody.velocity;
             set => this._rigidbody.velocity = value;
         }
-        public float MaxVelocity => this._maxVelocity;
+        //public float MaxVelocity => this._maxVelocity;
         
         private void FixedUpdate()
         {
             if (this.MovementAllowed)
             {
-                this._rigidbody.AddForce(this.AxisDelta * this._acceleration, ForceMode2D.Force);
-                if (this._rigidbody.velocity.magnitude > this._maxVelocity)
-                    this._rigidbody.velocity = this._rigidbody.velocity.normalized * this._maxVelocity;
+                this._rigidbody.AddForce(this.AxisDelta * this._settings.Acceleration, ForceMode2D.Force);
+                if (this._rigidbody.velocity.magnitude > this._settings.MaxVelocity)
+                    this._rigidbody.velocity = this._rigidbody.velocity.normalized * this._settings.MaxVelocity;
             }
         }
 
         private bool _movementAllowed;
-
-        [SerializeField] private float _maxVelocity;
-        [SerializeField] private float _acceleration;
+        private GameSettings _settings;
+        
         [SerializeField] private Hitchhiker _hitchhiker;
         [SerializeField] private Rigidbody2D _rigidbody;
     }

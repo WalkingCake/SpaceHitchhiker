@@ -3,31 +3,28 @@ using SpaceHitchhiker.Tools;
 using UnityEngine;
 using SpaceHitchhiker.Abstraction;
 using System.Collections;
+using SpaceHitchhiker.Offsets;
 
 namespace SpaceHitchhiker.Player
 {
     public class Hitchhiker : AbstractMoveable
     {
-        public HitchhikerState State { get; set; }
-        public RigidbodyHandler RigidbodyHandler => this._rigidbodyHandler;
-
-        private void Awake()
+        public HitchhikerState State
         {
-            this.State = HitchhikerState.InOrbit;
-            this.CurrentOffset = new SpinOffset(this.transform.position);
+            get => this._stateController.State;
+            set => this._stateController.State = value;
         }
+        public RigidbodyHandler RigidbodyHandler => this._rigidbodyHandler;
+        public CameraMover CameraMover => this._cameraMover;
+        //private void Awake()
+        //{
+        //    this._stateController.State = HitchhikerState.InOrbit;
+        //    this.CurrentOffset = new SpinOffset(this.transform.position);
+        //}
 
         public void UpdateRotationAnimator() => this.UpdateAnimator(this.CurrentOffset as SpinOffset);
 
-        public void UpdateAnimator(SpinOffset offset) => this.UpdateAnimator(offset.AddX, offset.AddY, offset.SubX, offset.SubY);
-
-        public void UpdateAnimator(bool addX, bool addY, bool subX, bool subY)
-        {
-            this._rotationAnimator.SetBool("AddedX", addX);
-            this._rotationAnimator.SetBool("AddedY", addY);
-            this._rotationAnimator.SetBool("SubX", subX);
-            this._rotationAnimator.SetBool("SubY", subY);
-        }
+        public void UpdateAnimator(SpinOffset offset) => this._stateController.UpdateRotationAnimator(offset.AddX, offset.AddY, offset.SubX, offset.SubY);
 
         public override void MoveNext()
         {
@@ -40,19 +37,27 @@ namespace SpaceHitchhiker.Player
         {
             this.State = HitchhikerState.Free;
             this.RigidbodyHandler.MovementAllowed = true;
-            this.RigidbodyHandler.Position = this.transform.position;
+            //this.RigidbodyHandler.Position = this.transform.position;
+            this.RigidbodyHandler.transform.position = this.transform.position;
             this._flight = StartCoroutine(this.Flight(flyDirection, positionSwitchingTime));
         }
 
-        public void BindToPlanet(Planet planet)
+        public void BindToPlanet(PlanetMovement planet)
         {
-
+            this.State = HitchhikerState.OnPlanet;
+            this.RigidbodyHandler.MovementAllowed = false;
+            this.RigidbodyHandler.Position = planet.transform.position;
+            this._movementInfoCollector.ResetMovementInfo();
+            if(this._flight != null)
+            {
+                StopCoroutine(this._flight);
+            }
         }
 
         private IEnumerator Flight(Vector2 flyDirection, float positionSwitchingTime)
         {
             FreeHitchhikerOffset path = new FreeHitchhikerOffset(this.transform.position, this._rigidbodyHandler,
-                flyDirection * this._rigidbodyHandler.MaxVelocity);
+                flyDirection * GameSettings.Instance.MaxVelocity);
             this.MoveTo(path);
             this._cameraMover.MoveTo(path);
 
@@ -74,14 +79,9 @@ namespace SpaceHitchhiker.Player
         [SerializeField] private CameraMover _cameraMover;
         [SerializeField] private RigidbodyHandler _rigidbodyHandler;
         [SerializeField] private HitchhikerMovementInfoCollector _movementInfoCollector;
-        [SerializeField] private Animator _rotationAnimator;
+        //[SerializeField] private Animator _rotationAnimator;
+        [SerializeField] private HitchhikerStateController _stateController;
     }
 
-    public enum HitchhikerState
-    {
-        OnPlanet,
-        InOrbit,
-        Transformating,
-        Free
-    }
+
 }

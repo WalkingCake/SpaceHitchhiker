@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Abstraction;
 using SpaceHitchhiker.Tools;
+using SpaceHitchhiker.Offsets;
 
 namespace SpaceHitchhiker.Player
 {

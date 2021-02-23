@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Tools;
 
-namespace SpaceHitchhiker.Planets
+namespace SpaceHitchhiker.Offsets
 {
     public class SpinOffset : Offset
     {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Planets;
+using SpaceHitchhiker.Offsets;
 
 namespace SpaceHitchhiker.Tools
 {
@@ -87,6 +88,20 @@ namespace SpaceHitchhiker.Tools
             {
                 current.Vector = current.Vector.RoundVector();
             }
+        }
+
+        public static int GetCount(Offset from, Offset to)
+        {
+            int count = 1;
+            Offset current = from;
+            while(current.HasNext)
+            {
+                if (current == to)
+                    return count;
+                count++;
+                current = current.Next;
+            }
+            return -1;
         }
 
         public static void AddToSequance<T>(this T offset, Vector2 value) where T : Offset

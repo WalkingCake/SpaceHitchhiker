@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SpaceHitchhiker.Tools
+namespace SpaceHitchhiker.Offsets
 {
     public class Offset
     {

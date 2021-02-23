@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Tools;
 
-namespace SpaceHitchhiker.Player
+namespace SpaceHitchhiker.Offsets
 {
     public abstract class EndlessOffset : Offset
     {

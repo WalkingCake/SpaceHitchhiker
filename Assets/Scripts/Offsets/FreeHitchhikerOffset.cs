@@ -1,4 +1,5 @@
-﻿using SpaceHitchhiker.Tools;
+﻿using SpaceHitchhiker.Player;
+using SpaceHitchhiker.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SpaceHitchhiker.Player
+namespace SpaceHitchhiker.Offsets
 {
     public class FreeHitchhikerOffset : EndlessOffset
     {
