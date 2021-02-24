@@ -12,8 +12,17 @@ using SpaceHitchhiker.Offsets;
 
 namespace SpaceHitchhiker.Planets
 {
-    public class PlanetMovement : MonoBehaviour
+    public class PlanetMovement : MonoBehaviour, IInitializeable<Planet>
     {
+        public void Initialize(AbstractRawInfo<Planet> planetRawInfo)
+        {
+            PlanetRawInfo info = planetRawInfo as PlanetRawInfo;
+            this._angle = info.Angle;
+            this._distanceFromCenter = info.Distance;
+            this._bornDeltaTime = info.BornDeltaTime;
+            this._spinDeltaTime = info.SpinDeltaTime;
+        }
+
         private void Start()
         {
             //TODO: Remove it later. It's for debug
@@ -75,7 +84,7 @@ namespace SpaceHitchhiker.Planets
 
             while (!_timeToSeparate)
             {
-                yield return this.MoveAndSkip(this._movementDeltaTime, hitchhiker);
+                yield return this.MoveAndSkip(this._spinDeltaTime, hitchhiker);
             }
 
             this._timeToSeparate = false;
@@ -86,10 +95,10 @@ namespace SpaceHitchhiker.Planets
 
             while(hitchhiker.CurrentOffset.HasNext || hitchhiker.CameraMover.CurrentOffset.HasNext)
             {
-                yield return this.MoveAndSkip(this._movementDeltaTime, hitchhiker, hitchhiker.CameraMover);
+                yield return this.MoveAndSkip(this._spinDeltaTime, hitchhiker, hitchhiker.CameraMover);
             }
 
-            hitchhiker.Free(meetPlace.normalized, this._movementDeltaTime);
+            hitchhiker.Free(meetPlace.normalized, this._spinDeltaTime);
             yield return new WaitForEndOfFrame();
 
             this._trigger.enabled = true;
@@ -130,12 +139,11 @@ namespace SpaceHitchhiker.Planets
         private Coroutine _rotationPlanet;
 
         [SerializeField] private float _angle = 70f;
-        [SerializeField] private float _movementDeltaTime;
+        [SerializeField] private float _spinDeltaTime;
         [SerializeField] private float _bornDeltaTime;
         [SerializeField] private float _distanceFromCenter = 14;
-        [SerializeField] private CircleCollider2D _trigger;
 
+        [SerializeField] private CircleCollider2D _trigger;
         [SerializeField] private Hitchhiker _hitchhiker;
-        //[SerializeField] private CameraMover _cameraMover;
     }
 }

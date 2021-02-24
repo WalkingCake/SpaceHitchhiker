@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Abstraction;
+using SpaceHitchhiker.Dialogues;
 
 namespace SpaceHitchhiker.Planets
 {
@@ -12,20 +13,20 @@ namespace SpaceHitchhiker.Planets
     {
         public string Name { get; private set; }
 
-        public static Planet Create(string name, Vector2 position)
+        public Dialogues.Event PlanetEvent { get; private set; }
+
+        public void Initialize(AbstractRawInfo<Planet> planetRawInfo)
         {
-            GameObject planetHandler = new GameObject(name);
-            planetHandler.transform.position = position;
+            PlanetRawInfo info = planetRawInfo as PlanetRawInfo;
+            
+            this.transform.position = info.Position;
+            this.gameObject.name = info.Name;
 
-            Planet planet = planetHandler.AddComponent<Planet>();
-            planet.Name = name;
-
-            return planet;
+            this.Name = info.Name;
+            this.PlanetEvent = EventLibrary.Instance.GetEvent(info.EventID);
+            this._planetMovement.Initialize(planetRawInfo);
         }
 
-        public Planet Initialize(AbstractRawInfo<Planet> info)
-        {
-            throw new NotImplementedException();
-        }
+        [SerializeField] private PlanetMovement _planetMovement;
     }
 }

@@ -31,7 +31,6 @@ namespace SpaceHitchhiker.Player
         {
             this.Velocity = Vector2.zero;
             this.MovementAllowed = false;
-            this._settings = GameSettings.Instance;
         }
         public Vector2 Position
         {
@@ -54,14 +53,13 @@ namespace SpaceHitchhiker.Player
         {
             if (this.MovementAllowed)
             {
-                this._rigidbody.AddForce(this.AxisDelta * this._settings.Acceleration, ForceMode2D.Force);
-                if (this._rigidbody.velocity.magnitude > this._settings.MaxVelocity)
-                    this._rigidbody.velocity = this._rigidbody.velocity.normalized * this._settings.MaxVelocity;
+                this._rigidbody.AddForce(this.AxisDelta * this._hitchhiker.Info.Acceleration, ForceMode2D.Force);
+                if (this._rigidbody.velocity.magnitude > this._hitchhiker.Info.MaxVelocity)
+                    this._rigidbody.velocity = this._rigidbody.velocity.normalized * this._hitchhiker.Info.MaxVelocity;
             }
         }
 
         private bool _movementAllowed;
-        private GameSettings _settings;
         
         [SerializeField] private Hitchhiker _hitchhiker;
         [SerializeField] private Rigidbody2D _rigidbody;

@@ -21,18 +21,13 @@ namespace SpaceHitchhiker.Tools
         }
 
         public KeyCode SeparateKey { get; }
-        public float MaxVelocity { get; }
-        public float Acceleration { get; }
+
         public Dialogues.Event StartEvent { get; }
 
 
         private GameSettings()
         {
             this.SeparateKey = KeyCode.Space;
-            this.MaxVelocity = 10f;
-            this.Acceleration = 7f;
-            this.StartEvent = EventLibrary.Instance.GetEvent("event0");
-
         }
 
         private static GameSettings _instance;

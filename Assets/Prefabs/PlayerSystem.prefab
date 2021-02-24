@@ -78,8 +78,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.5
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: cd7d94ba9083d1c4494409e6b46d16df, type: 2}
   m_Interpolate: 0
@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 1272864384555664615}
   - component: {fileID: 1272864384555664612}
   - component: {fileID: 1272864384555664613}
+  - component: {fileID: 571990668}
   m_Layer: 0
   m_Name: Hitchhiker
   m_TagString: Untagged
@@ -538,6 +539,7 @@ MonoBehaviour:
   _cameraMover: {fileID: 0}
   _rigidbodyHandler: {fileID: 1272864383764296273}
   _movementInfoCollector: {fileID: 1272864384555664612}
+  _info: {fileID: 571990668}
   _stateController: {fileID: 1272864384555664614}
 --- !u!114 &1272864384555664614
 MonoBehaviour:
@@ -566,7 +568,7 @@ Animator:
   m_GameObject: {fileID: 1272864384555664619}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd97cf6fd0abe5d4fafc2287c1cd34da, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9413c24bfcd904947a2934556db99a0c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -606,6 +608,23 @@ MonoBehaviour:
   _rightFireAnim: {fileID: 1272864384356552171}
   _downFireAnim: {fileID: 1272864384473636754}
   _leftFireAnim: {fileID: 1272864383911095908}
+--- !u!114 &571990668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272864384555664619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7d228774b9bc4498c0df46096a3a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eventID: event0
+  _hp: 3
+  _maxHP: 3
+  _maxVelocity: 10
+  _acceleration: 7
 --- !u!1 &1272864384721324384
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,19 +9,19 @@ namespace SpaceHitchhiker.Player
 {
     public class Hitchhiker : AbstractMoveable
     {
+
+        public HitchhikerInfo Info => this._info;
+
         public HitchhikerState State
         {
             get => this._stateController.State;
             set => this._stateController.State = value;
         }
+        
         public RigidbodyHandler RigidbodyHandler => this._rigidbodyHandler;
+        
         public CameraMover CameraMover => this._cameraMover;
-        //private void Awake()
-        //{
-        //    this._stateController.State = HitchhikerState.InOrbit;
-        //    this.CurrentOffset = new SpinOffset(this.transform.position);
-        //}
-
+        
         public void UpdateRotationAnimator() => this.UpdateAnimator(this.CurrentOffset as SpinOffset);
 
         public void UpdateAnimator(SpinOffset offset) => this._stateController.UpdateRotationAnimator(offset.AddX, offset.AddY, offset.SubX, offset.SubY);
@@ -57,7 +57,7 @@ namespace SpaceHitchhiker.Player
         private IEnumerator Flight(Vector2 flyDirection, float positionSwitchingTime)
         {
             FreeHitchhikerOffset path = new FreeHitchhikerOffset(this.transform.position, this._rigidbodyHandler,
-                flyDirection * GameSettings.Instance.MaxVelocity);
+                flyDirection * this._info.MaxVelocity);
             this.MoveTo(path);
             this._cameraMover.MoveTo(path);
 
@@ -78,8 +78,8 @@ namespace SpaceHitchhiker.Player
 
         [SerializeField] private CameraMover _cameraMover;
         [SerializeField] private RigidbodyHandler _rigidbodyHandler;
-        [SerializeField] private HitchhikerMovementInfoCollector _movementInfoCollector;
-        //[SerializeField] private Animator _rotationAnimator;
+        [SerializeField] private HitchhikerControl _movementInfoCollector;
+        [SerializeField] private HitchhikerInfo _info;
         [SerializeField] private HitchhikerStateController _stateController;
     }
 

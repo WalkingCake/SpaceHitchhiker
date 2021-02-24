@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SpaceHitchhiker.Player
 {
-    public class HitchhikerMovementInfoCollector : MonoBehaviour
+    public class HitchhikerControl : MonoBehaviour
     {
         public Vector2 AxisDelta { get; private set; }
 

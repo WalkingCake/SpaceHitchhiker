@@ -9,36 +9,30 @@ namespace SpaceHitchhiker.Dialogues
 {
     public class Dialogue
     {
+        public Action OnEventChanged;
+
         public string EventID => this._currentEvent.ID;
         public string EventName => this._currentEvent.Name;
         public string EventText => this._currentEvent.Text;
-        public Answer[] Answers => this._currentEvent.Answers;
+        public Answer[] Answers => this._currentEvent.Answers.Where(answer => answer.IsAvailable(this._importantData)).ToArray();
 
-
-        public static Dialogue Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Dialogue(GameSettings.Instance.StartEvent);
-                }
-                return _instance;
-            }
-        }
-
-        private Dialogue(Event startEvent, params DialogueDependency[] dependencies)
+        public Dialogue(Event startEvent, params DialogueDependency[] dependencies)
         {
             this._currentEvent = startEvent;
             this._importantData = new List<DialogueDependency>(dependencies);
         }
 
-        //public bool PickAnswer(Answer answer)
-        //{
-            
-        //}
+        public bool PickAnswer(Answer answer)
+        {
+            if (answer.IsAvailable(this._importantData))
+            {
+                this._currentEvent = EventLibrary.Instance.GetEvent(answer.NextEventID);
+                this.OnEventChanged?.Invoke();
+                return true;
+            }
+            return false;
+        }
 
-        private static Dialogue _instance;
         private Event _currentEvent;
         private readonly List<DialogueDependency> _importantData;
     }

@@ -22,6 +22,11 @@ namespace SpaceHitchhiker.Planets
         /// </summary>
         public float Angle { get; }
 
+        public float BornDeltaTime { get; }
+        public float SpinDeltaTime { get; }
+        public float Diameter { get; }
+        public string EventID { get; }
+
         public PlanetRawInfo(string name, Vector2 position, float distance,
             float angle)
         {
