@@ -7,9 +7,8 @@ using SpaceHitchhiker.Offsets;
 
 namespace SpaceHitchhiker.Player
 {
-    public class Hitchhiker : AbstractMoveable
+    public class Hitchhiker : AbstractMoveable, IRigidbodyHandlerOwner
     {
-
         public HitchhikerInfo Info => this._info;
 
         public HitchhikerState State

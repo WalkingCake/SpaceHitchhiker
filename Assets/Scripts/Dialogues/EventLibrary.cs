@@ -22,26 +22,26 @@ namespace SpaceHitchhiker.Dialogues
 
         private EventLibrary()
         {
-            this._defaultEvent = new Event("event0", "Test Event",
+            this._defaultEvent = new DialogueNode("event0", "Test Event",
                 "This event was created for testing event system",
                 new Answer[] { new Answer("answer0", "Test Answer", "event0") });
-            this._events = new Dictionary<string, Event>()
+            this._events = new Dictionary<string, DialogueNode>()
             {
                 { this._defaultEvent.ID, this._defaultEvent }
             };
         }
 
-        public Event GetEvent(string id)
+        public DialogueNode GetEvent(string id)
         {
-            if(this._events.TryGetValue(id, out Event e))
+            if(this._events.TryGetValue(id, out DialogueNode e))
             {
                 return e;
             }
             return this._defaultEvent;
         }
 
-        private readonly Dictionary<string, Event> _events;
-        private readonly Event _defaultEvent;
+        private readonly Dictionary<string, DialogueNode> _events;
+        private readonly DialogueNode _defaultEvent;
 
         public static EventLibrary _instance;
     }

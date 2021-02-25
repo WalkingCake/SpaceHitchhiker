@@ -6,19 +6,24 @@ using System.Threading.Tasks;
 
 namespace SpaceHitchhiker.Dialogues
 {
-    public class Event
+    public class DialogueNode
     {
         public string ID { get; }
         public string Name { get; }
         public string Text { get; }
         public Answer[] Answers { get; }
+        public bool IsImportant { get; }
+        public bool IsStableNode { get; }
 
-        public Event(string id, string name, string text, Answer[] answers)
+        public DialogueNode(string id, string name, string text, Answer[] answers,
+            bool isImportant = false, bool isStableNode = false)
         {
             this.ID = id;
             this.Name = name;
             this.Text = text;
             this.Answers = answers;
+            this.IsImportant = isImportant;
+            this.IsStableNode = isStableNode;
         }
     }
 }

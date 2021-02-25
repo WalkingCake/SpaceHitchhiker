@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using SpaceHitchhiker.Abstraction;
 
 namespace SpaceHitchhiker.Player
 {
     public class RigidbodyHandler : MonoBehaviour
     {
-        public Hitchhiker Parent => this._hitchhiker;
+        public IRigidbodyHandlerOwner Parent => this._hitchhiker;
         public Vector2 AxisDelta { private get;  set; }
 
         public bool MovementAllowed

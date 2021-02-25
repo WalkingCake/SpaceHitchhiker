@@ -22,7 +22,7 @@ namespace SpaceHitchhiker.Tools
 
         public KeyCode SeparateKey { get; }
 
-        public Dialogues.Event StartEvent { get; }
+        public Dialogues.DialogueNode StartEvent { get; }
 
 
         private GameSettings()

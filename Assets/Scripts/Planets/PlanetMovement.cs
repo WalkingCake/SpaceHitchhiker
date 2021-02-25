@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using SpaceHitchhiker.Player;
 using SpaceHitchhiker.Tools;
 using System.Collections;
@@ -23,30 +18,15 @@ namespace SpaceHitchhiker.Planets
             this._spinDeltaTime = info.SpinDeltaTime;
         }
 
-        private void Start()
-        {
-            //TODO: Remove it later. It's for debug
-            if(this._hitchhiker != null)
-                this.LandToPlanet(this._hitchhiker);
-        }
-
         private void Update()
         {
             if (this._rotationPlanet != null && Input.GetKeyDown(GameSettings.Instance.SeparateKey))
                 this._timeToSeparate = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.TryGetComponent(out RigidbodyHandler rbHandler))
-            {
-                this.LandToPlanet(rbHandler.Parent);
-            }
-        }
 
-        private void LandToPlanet(Hitchhiker hitchhiker)
+        public void LandToPlanet(Hitchhiker hitchhiker)
         {
-            this._trigger.enabled = false;
             hitchhiker.BindToPlanet(this);
 
             this._rotationPlanet = StartCoroutine(this.RotateAroundPlanet(hitchhiker));
@@ -101,7 +81,6 @@ namespace SpaceHitchhiker.Planets
             hitchhiker.Free(meetPlace.normalized, this._spinDeltaTime);
             yield return new WaitForEndOfFrame();
 
-            this._trigger.enabled = true;
             StopCoroutine(this._rotationPlanet);
             yield break;
         }
@@ -142,8 +121,5 @@ namespace SpaceHitchhiker.Planets
         [SerializeField] private float _spinDeltaTime;
         [SerializeField] private float _bornDeltaTime;
         [SerializeField] private float _distanceFromCenter = 14;
-
-        [SerializeField] private CircleCollider2D _trigger;
-        [SerializeField] private Hitchhiker _hitchhiker;
     }
 }

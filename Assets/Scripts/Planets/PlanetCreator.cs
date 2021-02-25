@@ -17,7 +17,7 @@ namespace SpaceHitchhiker.Planets
 
         public Planet Create(PlanetRawInfo planetRawInfo)
         {
-            Planet planet = GameObject.Instantiate(_planetPrefub).GetComponent<Planet>();
+            Planet planet = GameObject.Instantiate(this._planetPrefub).GetComponent<Planet>();
             planet.transform.SetParent(this.transform);
             planet.Initialize(planetRawInfo);
             return planet;

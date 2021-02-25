@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Abstraction;
 using SpaceHitchhiker.Dialogues;
+using SpaceHitchhiker.Player;
 
 namespace SpaceHitchhiker.Planets
 {
@@ -13,7 +14,7 @@ namespace SpaceHitchhiker.Planets
     {
         public string Name { get; private set; }
 
-        public Dialogues.Event PlanetEvent { get; private set; }
+        public DialogueNode PlanetEvent { get; private set; }
 
         public void Initialize(AbstractRawInfo<Planet> planetRawInfo)
         {
@@ -25,8 +26,22 @@ namespace SpaceHitchhiker.Planets
             this.Name = info.Name;
             this.PlanetEvent = EventLibrary.Instance.GetEvent(info.EventID);
             this._planetMovement.Initialize(planetRawInfo);
+
+            this._trigger.radius = info.Diameter / 2;
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.TryGetComponent(out RigidbodyHandler rbHandler)
+                && rbHandler.Parent is Hitchhiker)
+            {
+                this._planetMovement.LandToPlanet(rbHandler.Parent as Hitchhiker);
+                this._trigger.enabled = false;
+            }
+        }
+
+
+        [SerializeField] private CircleCollider2D _trigger;
         [SerializeField] private PlanetMovement _planetMovement;
     }
 }
