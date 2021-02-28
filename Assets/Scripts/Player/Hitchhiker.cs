@@ -20,7 +20,11 @@ namespace SpaceHitchhiker.Player
         public RigidbodyHandler RigidbodyHandler => this._rigidbodyHandler;
         
         public CameraMover CameraMover => this._cameraMover;
-        
+
+        private void Start()
+        {
+            this.Free(Vector2.zero, 0.2f);
+        }
         public void UpdateRotationAnimator() => this.UpdateAnimator(this.CurrentOffset as SpinOffset);
 
         public void UpdateAnimator(SpinOffset offset) => this._stateController.UpdateRotationAnimator(offset.AddX, offset.AddY, offset.SubX, offset.SubY);

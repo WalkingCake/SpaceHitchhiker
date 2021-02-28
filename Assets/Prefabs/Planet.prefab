@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7567849356516637955}
   - component: {fileID: 7567849356516637953}
   m_Layer: 0
-  m_Name: StartPlanet
+  m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: -8198574232401945530, guid: 7fa40aa1f66de9642a87999b6061eccf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,12 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24bd95741a77c164da5f3f2ffa4b8e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parent: {fileID: 7567849356516637953}
   _angle: 70
-  _movementDeltaTime: 0.04
+  _spinDeltaTime: 0
   _bornDeltaTime: 0.2
   _distanceFromCenter: 15
-  _trigger: {fileID: 7567849356516637955}
-  _hitchhiker: {fileID: 0}
 --- !u!58 &7567849356516637955
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -131,3 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703c4b85e95cb4948b9646f9ff897837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trigger: {fileID: 7567849356516637955}
+  _spriteRenderer: {fileID: 7567849356516637959}
+  _color: {r: 0.7803922, g: 0.94117653, b: 0.8470589, a: 1}
+  _planetMovement: {fileID: 7567849356516637954}

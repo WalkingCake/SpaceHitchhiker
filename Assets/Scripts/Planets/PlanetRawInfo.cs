@@ -24,16 +24,21 @@ namespace SpaceHitchhiker.Planets
 
         public float BornDeltaTime { get; }
         public float SpinDeltaTime { get; }
-        public float Diameter { get; }
+        public int Radius { get; }
         public string EventID { get; }
 
         public PlanetRawInfo(string name, Vector2 position, float distance,
-            float angle)
+            float angle, int radius, float spinDeltaTime, float bornDeltaTime,
+            string eventID)
         {
             this.Name = name;
             this.Position = position;
             this.Distance = distance;
             this.Angle = angle;
+            this.BornDeltaTime = bornDeltaTime;
+            this.SpinDeltaTime = spinDeltaTime;
+            this.Radius = radius;
+            this.EventID = eventID;
         }
 
     }

@@ -13,6 +13,7 @@ namespace SpaceHitchhiker.Player
     {
         public IRigidbodyHandlerOwner Parent => this._hitchhiker;
         public Vector2 AxisDelta { private get;  set; }
+        public Rigidbody2D Rigidbody => this._rigidbody;
 
         public bool MovementAllowed
         {

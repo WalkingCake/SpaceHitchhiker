@@ -28,6 +28,7 @@ namespace SpaceHitchhiker.Planets
         public void LandToPlanet(Hitchhiker hitchhiker)
         {
             hitchhiker.BindToPlanet(this);
+            this._parent.SetTriggerActive(false);
 
             this._rotationPlanet = StartCoroutine(this.RotateAroundPlanet(hitchhiker));
         }
@@ -80,6 +81,8 @@ namespace SpaceHitchhiker.Planets
 
             hitchhiker.Free(meetPlace.normalized, this._spinDeltaTime);
             yield return new WaitForEndOfFrame();
+            
+            this._parent.SetTriggerActive(true);
 
             StopCoroutine(this._rotationPlanet);
             yield break;
@@ -117,6 +120,7 @@ namespace SpaceHitchhiker.Planets
         private bool _timeToSeparate;
         private Coroutine _rotationPlanet;
 
+        [SerializeField] private Planet _parent;
         [SerializeField] private float _angle = 70f;
         [SerializeField] private float _spinDeltaTime;
         [SerializeField] private float _bornDeltaTime;
