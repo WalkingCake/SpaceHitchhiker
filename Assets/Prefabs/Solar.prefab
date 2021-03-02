@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5410400988796685440}
   - component: {fileID: 5410400988796685441}
   - component: {fileID: 5410400988796685446}
+  - component: {fileID: 3085197607630662742}
   m_Layer: 0
   m_Name: Solar
   m_TagString: Untagged
@@ -44,10 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2c6c9e7930bd24eab99afb398923fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 0.1
-  _hitchhiker: {fileID: 0}
   _color: {r: 0.7803922, g: 0.94117653, b: 0.8470589, a: 1}
   _spriteRenderer: {fileID: 5410400988796685446}
+  _massive: {fileID: 3085197607630662742}
 --- !u!212 &5410400988796685446
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -99,3 +99,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3085197607630662742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5410400988796685447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdd79ee85de1cf43a585d4aed3e99db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

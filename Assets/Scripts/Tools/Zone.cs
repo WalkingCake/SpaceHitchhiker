@@ -7,26 +7,34 @@ using System.Threading.Tasks;
 using UnityEngine;
 namespace SpaceHitchhiker.Tools
 {
-    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(CircleCollider2D))]
     public class Zone : MonoBehaviour
     {
-        public event Action OnHitchhikerEnter;
-        public event Action OnHitchhikerExit;
+        public event Action<RigidbodyHandler> OnRigidbodyEnter;
+        public event Action<RigidbodyHandler> OnRigidbodyExit;
+
+        public float Radius
+        {
+            get => this._collider.radius;
+            set => this._collider.radius = value;
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.TryGetComponent(out Hitchhiker hitchhiker))
+            if(collision.TryGetComponent(out RigidbodyHandler rbHandler))
             {
-                this.OnHitchhikerEnter?.Invoke();
+                this.OnRigidbodyEnter?.Invoke(rbHandler);
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if(collision.TryGetComponent(out Hitchhiker hitchhiker))
+            if(collision.TryGetComponent(out RigidbodyHandler rbHandler))
             {
-                this.OnHitchhikerExit?.Invoke();
+                this.OnRigidbodyExit?.Invoke(rbHandler);
             }
         }
+
+        [SerializeField] private CircleCollider2D _collider;
     }
 }

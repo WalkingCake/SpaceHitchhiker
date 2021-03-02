@@ -21,10 +21,6 @@ namespace SpaceHitchhiker.Player
         
         public CameraMover CameraMover => this._cameraMover;
 
-        private void Start()
-        {
-            this.Free(Vector2.zero, 0.2f);
-        }
         public void UpdateRotationAnimator() => this.UpdateAnimator(this.CurrentOffset as SpinOffset);
 
         public void UpdateAnimator(SpinOffset offset) => this._stateController.UpdateRotationAnimator(offset.AddX, offset.AddY, offset.SubX, offset.SubY);
@@ -45,7 +41,7 @@ namespace SpaceHitchhiker.Player
             this._flight = StartCoroutine(this.Flight(flyDirection, positionSwitchingTime));
         }
 
-        public void BindToPlanet(PlanetMovement planet)
+        public void BindToPlanet(HitchhikerMovement planet)
         {
             this.State = HitchhikerState.OnPlanet;
             this.RigidbodyHandler.MovementAllowed = false;

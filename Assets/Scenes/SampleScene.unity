@@ -612,6 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _solarPrefab: {fileID: 5410400988796685447, guid: 41a1bd87da8330f468a85b5ffda5a666, type: 3}
   _planetPrefab: {fileID: 7567849356516637958, guid: a3e14d723a9efd244ad051bb04b7969d, type: 3}
+  _hitchhiker: {fileID: 1227379367}
 --- !u!4 &1150650714
 Transform:
   m_ObjectHideFlags: 0

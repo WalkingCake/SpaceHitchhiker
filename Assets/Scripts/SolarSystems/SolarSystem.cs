@@ -8,6 +8,7 @@ using SpaceHitchhiker.Abstraction;
 using SpaceHitchhiker.Solars;
 using SpaceHitchhiker.Planets;
 using SpaceHitchhiker.Loaders;
+using SpaceHitchhiker.Player;
 
 namespace SpaceHitchhiker.SolarSystems
 {
@@ -29,6 +30,7 @@ namespace SpaceHitchhiker.SolarSystems
             this.Solar = GameObject.Instantiate(_solarPrefab).GetComponent<Solar>();
             this.Solar.transform.SetParent(this.transform);
             this.Solar.Initialize(systemInfo.SolarInfo);
+            this.Solar.Massive.Add(this._hitchhiker.RigidbodyHandler);
 
             PlanetRawInfo[] planetsInfo = systemInfo.PlanetsInfo;
             this.Planets = new Planet[planetsInfo.Length];
@@ -39,9 +41,12 @@ namespace SpaceHitchhiker.SolarSystems
                 planet.Initialize(planetsInfo[i]);
                 this.Planets[i] = planet;
             }
+
+            this.Planets[0].Land(this._hitchhiker);
         }
 
         [SerializeField] private GameObject _solarPrefab;
         [SerializeField] private GameObject _planetPrefab;
+        [SerializeField] private Hitchhiker _hitchhiker;
     }
 }

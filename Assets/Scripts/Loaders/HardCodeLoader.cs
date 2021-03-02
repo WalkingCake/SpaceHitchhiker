@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpaceHitchhiker.Massive;
 
 namespace SpaceHitchhiker.Loaders
 {
@@ -29,11 +30,11 @@ namespace SpaceHitchhiker.Loaders
         private HardCodeLoader()
         {
             this._info = new SolarSystemRawInfo(
-                new SolarRawInfo(0.2f, 20),
+                new SolarRawInfo(20, new WholeMassiveRawInfo(0.2f)),
                 new PlanetRawInfo[]
                 {
-                    new PlanetRawInfo("Plyuk", new Vector2(60, 0), 18f, 70f, 13, 0.05f, 0.2f, "event0"),
-                    new PlanetRawInfo("Nibiru", new Vector2(100, 0), 20f, 70f, 15, 0.05f, 0.2f, "event0")
+                    new PlanetRawInfo("Plyuk", 60f, 18f, 70f, 13, 0.05f, 0.2f, 0.5f, "event0", new LimitedMassiveRawInfo(0.1f, 60f)),
+                    new PlanetRawInfo("Nibiru", 100f, 20f, 70f, 15, 0.05f, 0.2f, 0.5f, "event0", new LimitedMassiveRawInfo(0.1f, 60f))
                 }
                 );
         }
