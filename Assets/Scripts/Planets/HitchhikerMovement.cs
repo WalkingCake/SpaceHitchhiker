@@ -4,6 +4,7 @@ using SpaceHitchhiker.Tools;
 using System.Collections;
 using SpaceHitchhiker.Abstraction;
 using SpaceHitchhiker.Offsets;
+using System;
 
 namespace SpaceHitchhiker.Planets
 {
@@ -31,10 +32,29 @@ namespace SpaceHitchhiker.Planets
             this._parent.SetTriggerActive(false);
 
             this._rotationPlanet = StartCoroutine(this.RotateAroundPlanet(hitchhiker));
+            this._planetOffset = Vector2.zero;
+
+            this._planetMovedAction = () => this.OnPlanetMoved(hitchhiker);
+            this._previousPlanetPosition = this.transform.position;
+            this._parent.PlanetMovement.OnPositionChanged += this._planetMovedAction;
+        }
+
+        private void OnPlanetMoved(Hitchhiker hitchhiker)
+        {
+            this._planetOffset = (Vector2)this.transform.position - this._previousPlanetPosition;
+            this._previousPlanetPosition = this.transform.position;
+
+            //hitchhiker.CurrentOffset.Vector += this._planetOffset;
+            hitchhiker.CurrentOffset.AddToSequance(this._planetOffset);
+            hitchhiker.MoveTo(hitchhiker.CurrentOffset);
+
+            hitchhiker.CameraMover.CurrentOffset.AddToSequance(this._planetOffset);
+            hitchhiker.CameraMover.MoveTo(hitchhiker.CameraMover.CurrentOffset);
         }
 
         private IEnumerator RotateAroundPlanet(Hitchhiker hitchhiker)
         {
+
             hitchhiker.CameraMover.MoveTo(new Offset(this.transform.position));
             hitchhiker.MoveTo(new Offset(this.transform.position));
             
@@ -45,23 +65,23 @@ namespace SpaceHitchhiker.Planets
             {
                 yield return this.MoveAndSkip(0f, hitchhiker);
             }
-            this._timeToSeparate = false;
-
-            SpinOffset spinOffset = SpinOffset.Create(this.transform.position, this._distanceFromCenter);
             
-            Offset endBornOffset = new Offset(this.transform.position + Vector3.up * this._distanceFromCenter) { Next = spinOffset };
+            Offset endBornOffset = new Offset(this.transform.position + Vector3.up * this._distanceFromCenter);
             Offset startBornOffset = new Offset(this.transform.position) { Next = endBornOffset };
 
             VectorConverter.FillIntermidiateVectorsStraight(startBornOffset, endBornOffset);
+            startBornOffset.RoundSequance();
             hitchhiker.MoveTo(startBornOffset);
 
-            while(hitchhiker.CurrentOffset != spinOffset)
+            while(hitchhiker.CurrentOffset.Next != null)
             {
                 yield return this.MoveAndSkip(this._bornDeltaTime, hitchhiker);
             }
-
-            //this._hitchhiker.MoveTo(spinOffset);
+            SpinOffset spinOffset = SpinOffset.Create(this.transform.position, this._distanceFromCenter);
+            hitchhiker.CurrentOffset.Next = spinOffset;
             hitchhiker.State = HitchhikerState.InOrbit;
+            
+            this._timeToSeparate = false;
 
             while (!_timeToSeparate)
             {
@@ -69,6 +89,7 @@ namespace SpaceHitchhiker.Planets
             }
 
             this._timeToSeparate = false;
+            this._parent.PlanetMovement.OnPositionChanged -= this._planetMovedAction;
 
             Vector2 meetPlace= this.SetSyncPath(hitchhiker, hitchhiker.CameraMover);
             hitchhiker.State = HitchhikerState.Transformating;
@@ -78,7 +99,6 @@ namespace SpaceHitchhiker.Planets
             {
                 yield return this.MoveAndSkip(this._spinDeltaTime, hitchhiker, hitchhiker.CameraMover);
             }
-
             hitchhiker.Free(meetPlace.normalized, this._spinDeltaTime);
             yield return new WaitForEndOfFrame();
             
@@ -91,7 +111,10 @@ namespace SpaceHitchhiker.Planets
         private WaitForSeconds MoveAndSkip(float time, params IMoveable[] moveables)
         {
             foreach (IMoveable moveable in moveables)
+            {
                 moveable.MoveNext();
+            }
+            
             return new WaitForSeconds(time);
         }
 
@@ -123,7 +146,10 @@ namespace SpaceHitchhiker.Planets
         private float _spinDeltaTime;
         private float _bornDeltaTime;
         private float _distanceFromCenter;
-        
+        private Vector2 _planetOffset;
+        private Vector2 _previousPlanetPosition;
+        private Action _planetMovedAction;
+
         [SerializeField] private Planet _parent;
     }
 }

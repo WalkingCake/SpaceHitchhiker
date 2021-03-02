@@ -18,6 +18,8 @@ namespace SpaceHitchhiker.Planets
         public DialogueNode PlanetEvent { get; private set; }
         public LimitedMassive Massive => this._massive;
 
+        public PlanetMovement PlanetMovement => this._planetMovement;
+
         public void Initialize(AbstractRawInfo<Planet> planetRawInfo)
         {
             PlanetRawInfo info = planetRawInfo as PlanetRawInfo;

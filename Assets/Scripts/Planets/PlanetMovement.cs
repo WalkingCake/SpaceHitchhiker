@@ -11,6 +11,8 @@ namespace SpaceHitchhiker.Planets
 {
     public class PlanetMovement : AbstractMoveable, IInitializeable<Planet>
     {
+        public event Action OnPositionChanged;
+
         public void Initialize(AbstractRawInfo<Planet> info)
         {
             PlanetRawInfo planetInfo = info as PlanetRawInfo;
@@ -25,6 +27,7 @@ namespace SpaceHitchhiker.Planets
             {
                 this._timer -= this._positionSwitchingTime;
                 this.MoveNext();
+                this.OnPositionChanged?.Invoke();
             }
         }
 
