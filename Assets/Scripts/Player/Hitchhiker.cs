@@ -9,7 +9,7 @@ namespace SpaceHitchhiker.Player
 {
     public class Hitchhiker : AbstractMoveable, IRigidbodyHandlerOwner
     {
-        public HitchhikerInfo Info => this._info;
+        public SpaceShip Info => this._info;
 
         public HitchhikerState State
         {
@@ -78,7 +78,7 @@ namespace SpaceHitchhiker.Player
         [SerializeField] private CameraMover _cameraMover;
         [SerializeField] private RigidbodyHandler _rigidbodyHandler;
         [SerializeField] private HitchhikerControl _movementInfoCollector;
-        [SerializeField] private HitchhikerInfo _info;
+        [SerializeField] private SpaceShip _info;
         [SerializeField] private HitchhikerStateController _stateController;
     }
 

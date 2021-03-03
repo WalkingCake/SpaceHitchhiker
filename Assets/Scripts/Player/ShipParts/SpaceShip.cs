@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SpaceHitchhiker.Dialogues;
 
-namespace SpaceHitchhiker.Player
+namespace SpaceHitchhiker.Player.ShipParts
 {
-    public class HitchhikerInfo : MonoBehaviour 
+    public class SpaceShip : MonoBehaviour 
     {
         public float MaxVelocity => this._maxVelocity;
 
