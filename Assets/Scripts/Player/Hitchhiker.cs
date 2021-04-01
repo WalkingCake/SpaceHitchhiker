@@ -4,6 +4,7 @@ using UnityEngine;
 using SpaceHitchhiker.Abstraction;
 using System.Collections;
 using SpaceHitchhiker.Offsets;
+using SpaceHitchhiker.Player.ShipParts;
 
 namespace SpaceHitchhiker.Player
 {
