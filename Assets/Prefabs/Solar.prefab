@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5410400988796685441}
   - component: {fileID: 5410400988796685446}
   - component: {fileID: 3085197607630662742}
+  - component: {fileID: 4649490991980326319}
   m_Layer: 0
   m_Name: Solar
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2c6c9e7930bd24eab99afb398923fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 4649490991980326319}
   _color: {r: 0.7803922, g: 0.94117653, b: 0.8470589, a: 1}
   _spriteRenderer: {fileID: 5410400988796685446}
   _massive: {fileID: 3085197607630662742}
@@ -111,3 +113,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdd79ee85de1cf43a585d4aed3e99db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &4649490991980326319
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5410400988796685447}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

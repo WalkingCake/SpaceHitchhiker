@@ -11,10 +11,11 @@ namespace SpaceHitchhiker.Solars
     public class SolarRawInfo : AbstractRawInfo<Solar>
     {
         public int Radius { get; }
-
+        public float TouchVelocity { get; }
         public WholeMassiveRawInfo MassiveInfo {get;}
-        public SolarRawInfo(int radius, WholeMassiveRawInfo massiveInfo)
+        public SolarRawInfo(int radius, float touchVelocity, WholeMassiveRawInfo massiveInfo)
         {
+            this.TouchVelocity = touchVelocity;
             this.Radius = radius;
             this.MassiveInfo = massiveInfo;
         }

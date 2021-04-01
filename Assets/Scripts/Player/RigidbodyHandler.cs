@@ -53,11 +53,11 @@ namespace SpaceHitchhiker.Player
         
         private void FixedUpdate()
         {
-            if (this.MovementAllowed)
+            if (this.MovementAllowed /*&& this._rigidbody.velocity.magnitude < this._hitchhiker.Info.MaxVelocity*/)
             {
-                this._rigidbody.AddForce(this.AxisDelta * this._hitchhiker.Info.Acceleration, ForceMode2D.Force);
-                if (this._rigidbody.velocity.magnitude > this._hitchhiker.Info.MaxVelocity)
-                    this._rigidbody.velocity = this._rigidbody.velocity.normalized * this._hitchhiker.Info.MaxVelocity;
+                this._rigidbody.AddForce(this.AxisDelta * this._hitchhiker.Info.Acceleration * Time.fixedDeltaTime, ForceMode2D.Force);
+                //if ()
+                //    this._rigidbody.velocity = this._rigidbody.velocity.normalized * this._hitchhiker.Info.MaxVelocity;
             }
         }
 

@@ -8,7 +8,7 @@ using SpaceHitchhiker.Player.ShipParts;
 
 namespace SpaceHitchhiker.Player
 {
-    public class Hitchhiker : AbstractMoveable, IRigidbodyHandlerOwner
+    public class Hitchhiker : AbstractMoveable, IRigidbodyHandlerOwner, IHitable
     {
         public SpaceShip Info => this._info;
 
@@ -54,6 +54,11 @@ namespace SpaceHitchhiker.Player
             }
         }
 
+        public void Hit()
+        {
+            Debug.Log("Hitchhiker hited!");
+        }
+
         private IEnumerator Flight(Vector2 flyDirection, float positionSwitchingTime)
         {
             FreeHitchhikerOffset path = new FreeHitchhikerOffset(this.transform.position, this._rigidbodyHandler,
@@ -73,6 +78,8 @@ namespace SpaceHitchhiker.Player
             yield break;
 
         }
+
+        
 
         private Coroutine _flight;
 
